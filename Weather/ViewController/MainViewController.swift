@@ -20,9 +20,9 @@ final class MainViewController: UIViewController {
     //MARK: Clousers
     private lazy var weatherView: UIImageView = {
         let view = UIImageView(frame: CGRect(x: 0,
-                                        y: 0,
-                                        width: UIScreen.main.bounds.width,
-                                        height: UIScreen.main.bounds.height))
+                                             y: 0,
+                                             width: UIScreen.main.bounds.width,
+                                             height: UIScreen.main.bounds.height))
         view.image = UIImage(named: "Cloudy Weather")
         return view
     }()
@@ -31,7 +31,7 @@ final class MainViewController: UIViewController {
         let label = UILabel()
         label.textColor = .systemYellow
         label.font = UIFont(name: "Rockwell-Regular", size: 20)
-        label.numberOfLines = 3
+        label.numberOfLines = 5
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -91,14 +91,11 @@ final class MainViewController: UIViewController {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data, let weather = try? JSONDecoder().decode(WeatherData.self, from: data) {
                 DispatchQueue.main.async {
-                    self.weatherLabel.text = "Current temperature is \(weather.currentWeather.temperature) Cº\nWind speed is \(weather.currentWeather.windspeed) m/s"
+                    self.weatherLabel.text = "Temperature is \(weather.currentWeather.temperature)ºC\nWind speed is \(weather.currentWeather.windspeed) m/s"
                 }
-            } else {
-                print("fail")
             }
         }
         task.resume()
     }
-
 }
 
